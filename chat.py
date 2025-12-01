@@ -1,8 +1,5 @@
 import streamlit as st
-from googletrans import Translator
-
-# Initialize translator
-translator = Translator()
+from deep_translator import GoogleTranslator
 
 # Streamlit app
 st.title("🌐 English to Odia Translator")
@@ -17,11 +14,16 @@ if st.button("Translate"):
     if english_text.strip() != "":
         try:
             # Perform translation
-            translation = translator.translate(english_text, src="en", dest="or")
+            translation = GoogleTranslator(
+                source="en",
+                target="or"
+            ).translate(english_text)
+
             st.success("✅ Translation:")
-            st.text_area("Odia Translation:", translation.text, height=150)
+            st.text_area("Odia Translation:", translation, height=150)
+
         except Exception as e:
             st.error(f"Translation failed: {e}")
+
     else:
         st.warning("Please enter some text to translate.")
-
